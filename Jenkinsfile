@@ -6,6 +6,23 @@ pipeline{
 
 
     stages{
+           stage("Clone"){
+            steps{
+                git 'https://github.com/lopezrichard/calculadora.git'
+                echo "========executing Build========"
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========Build executed successfully========"
+                }
+                failure{
+                    echo "========Build execution failed========"
+                }
+            }
+        }
         stage("Build"){
             steps{
                 sh 'mvn compile'
