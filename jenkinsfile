@@ -67,8 +67,16 @@ pipeline{
 
     post{
         always{
-
-         emailext body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'lopezz.richardd@gmail.com'
+             junit( testResults: '**/TEST-*.xml',
+                            healthScaleFactor: 1.0 )
+            emailext(
+                    from: "lopezz.richardd@gmail.com",
+                    recipientProviders: [[$class: 'RequesterRecipientProvider']],
+                    mimeType: 'text/html',
+                    replyTo: '$DEFAULT_REPLYTO',
+                    subject: MAIL_SUBJECT,
+                    to: MAIL_TO,
+                    body: '${SCRIPT, template="web-emailreport.template"}' )
             echo "========always========"
         }
         success{
