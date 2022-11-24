@@ -9,7 +9,7 @@ public class testClculadora {
     @Test
     public void suma(){
         
-        Assertions.assertEquals(Calculadora.suma(5,5),10,"La suma no es correcta");
+        Assertions.assertEquals(Calculadora.suma(5,5),11,"La suma no es correcta");
     }
     @Test
     public void resta(){
