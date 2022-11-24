@@ -1,5 +1,6 @@
 def GIT_REPOSITORY = "https://github.com/lopezrichard/calculadora.git"
-
+def MAIL_SUBJECT = 'Practico - Ejecución # ${BUILD_NUMBER}'
+def MAIL_TO= 'lopezz.richardd@gmail.com'
 pipeline{
     agent any
       tools {
@@ -66,6 +67,16 @@ pipeline{
 
     post{
         always{
+             junit( testResults: '**/TEST-*.xml',
+                            healthScaleFactor: 1.0 )
+            emailext(
+                    from: "lopezz.richardd@gmail.com",
+                    recipientProviders: [[$class: 'RequesterRecipientProvider']],
+                    mimeType: 'text/html',
+                    replyTo: '$DEFAULT_REPLYTO',
+                    subject: MAIL_SUBJECT,
+                    to: MAIL_TO,
+                    body: '${SCRIPT, template="web-emailreport.template"}' )
             echo "========always========"
         }
         success{
