@@ -1,6 +1,5 @@
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Richard Lopez on 24/11/2022
@@ -10,10 +9,10 @@ public class testClculadora {
     @Test
     public void suma(){
         //
-        Assert.assertEquals(Calculadora.suma(5,5),11,"La suma no es correcta");
+        Assertions.assertEquals(Calculadora.suma(5,5),10,"La suma no es correcta");
     }
     @Test
     public void resta(){
-        Assert.assertEquals(Calculadora.resta(5,5),0,"La resta no es correcta");
+        Assertions.assertEquals(Calculadora.resta(5,5),0,"La resta no es correcta");
     }
 }
