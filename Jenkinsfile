@@ -8,6 +8,7 @@ pipeline{
     stages{
         stage("Build"){
             steps{
+                sh 'mvn compile'
                 echo "========executing Build========"
             }
             post{
@@ -25,6 +26,7 @@ pipeline{
 
         stage("Test"){
             steps{
+                sh 'mvn test'
                 echo "========executing Test========"
             }
             post{
