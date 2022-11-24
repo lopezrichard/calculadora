@@ -12,59 +12,28 @@ pipeline{
            stage("Clone"){
             steps{
                  git branch: 'master', url: GIT_REPOSITORY
-                echo "========executing Git========"
-            }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========Build executed successfully========"
-                }
-                failure{
-                    echo "========Build execution failed========"
-                }
             }
         }
         stage("Build"){
             steps{
-                sh 'mvn compile'
-                echo "========executing Build========"
-            }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========Build executed successfully========"
-                }
-                failure{
-                    echo "========Build execution failed========"
-                }
+                sh 'mvn clean compile'
             }
         }
 
         stage("Test"){
             steps{
-                sh 'mvn test'
+                sh 'mvn clean test'
                 echo "========executing Test========"
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========Test executed successfully========"
-                }
-                failure{
-                    echo "========Testexecution failed========"
-                }
-            }
         }
+        stage("Generate .jar"){
+                    steps{
+                        sh 'mvn clean package'
+                    }
+         }
+
+
     }
-
-
-
     post{
         always{
              junit( testResults: '**/TEST-*.xml',
