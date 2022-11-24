@@ -6,8 +6,6 @@ pipeline{
       tools {
         maven 'Maven'
     }
-
-
     stages{
            stage("Clone"){
             steps{
@@ -22,17 +20,15 @@ pipeline{
 
         stage("Test"){
             steps{
-                sh 'mvn clean test'
+                sh 'mvn test'
                 echo "========executing Test========"
             }
         }
         stage("Generate .jar"){
                     steps{
-                        sh 'mvn clean package'
+                        sh 'mvn package'
                     }
          }
-
-
     }
     post{
         always{
